@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#E6F0DA">
+<title>Eco</title>
+<style>
+:root{--bg:#E6F0DA;--bg2:#C9E0CF;--ink:#14301F;--mute:#4F6F5C;--acc:#2A7456;--on:#fff;--f:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--s:Georgia,"Iowan Old Style",serif;--glass:color-mix(in srgb,var(--bg) 58%,transparent);--line:color-mix(in srgb,var(--ink) 13%,transparent);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg2)}
+body{margin:0;min-height:100vh;font-family:var(--f);color:var(--ink);background:linear-gradient(165deg,var(--bg),var(--bg2));transition:background 1s;overflow-x:hidden}
+body::before,body::after{content:"";position:fixed;z-index:-1;border-radius:50%;pointer-events:none}
+body::before{width:360px;height:360px;background:var(--acc);top:-150px;right:-120px;filter:blur(70px);opacity:.4}
+body::after{width:300px;height:300px;background:var(--bg);bottom:-100px;left:-120px;filter:blur(60px);opacity:.9}
+main{max-width:460px;margin:0 auto;padding:22px 18px 90px}
+#app>*{animation:in .6s cubic-bezier(.2,.7,.2,1) both}
+#app>*:nth-child(2){animation-delay:.07s}#app>*:nth-child(3){animation-delay:.14s}#app>*:nth-child(4){animation-delay:.21s}#app>*:nth-child(n+5){animation-delay:.28s}
+@keyframes in{from{opacity:0;transform:translateY(16px)}}
+h1{font:italic 700 44px/1 var(--s);letter-spacing:-1.5px;margin:0}
+h2{font:italic 600 24px var(--s);margin:28px 0 12px}
+.sub{color:var(--mute);margin:8px 0 20px;font-size:17px;line-height:1.35}
+.mute,small{color:var(--mute)}small{display:block;font-size:13px;margin-top:2px}
+.hero{text-align:center;padding:22px 0 10px}.hero h1{font-size:58px;margin-top:4px}.hero .sub{font:italic 400 21px/1.3 var(--s);margin:10px 0 24px}
+.logo{width:96px;height:96px;color:var(--acc);overflow:visible}
+.logo circle{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;transform-origin:50px 50px;animation:rp 3.4s ease-out infinite}
+.logo circle:nth-child(2){animation-delay:.55s}.logo circle:nth-child(3){animation-delay:1.1s}
+.logo circle:nth-child(4){fill:currentColor;animation:none}
+@keyframes rp{0%{opacity:0;transform:scale(.35)}30%{opacity:1}100%{opacity:0;transform:scale(1.2)}}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:6px}.top .logo{width:50px;height:50px}.top h1{font-size:38px}
+.card{background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:24px;padding:16px;margin:0 0 14px;box-shadow:0 18px 36px -24px var(--ink)}
+input{width:100%;font:inherit;color:inherit;background:color-mix(in srgb,var(--bg) 75%,transparent);border:1.5px solid var(--line);border-radius:16px;padding:15px;margin:0 0 10px}
+input::placeholder{color:var(--mute)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.big{width:100%;border:0;border-radius:999px;padding:16px;background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 62%,var(--ink)));color:var(--on);font-weight:700;font-size:17px;margin:0 0 10px;box-shadow:0 14px 26px -12px var(--acc)}
+.ghost{width:100%;border:1.5px solid var(--acc);border-radius:999px;padding:14px;background:transparent;color:var(--ink);font-weight:600}
+.link{background:none;border:0;color:var(--acc);padding:10px 0;font-weight:700;text-decoration:underline;display:inline-block}
+.item{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;font:italic 600 24px var(--s);padding:24px 20px;margin:0 0 12px;border:0;border-radius:24px;color:var(--t,#fff);background:radial-gradient(circle at 92% 20%,color-mix(in srgb,var(--t,#fff) 28%,transparent),transparent 45%),linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 58%,#000));box-shadow:0 16px 30px -18px var(--c)}
+.item em{font:normal 28px var(--f);opacity:.8}
+.tema{font:italic 600 27px/1.2 var(--s);text-align:center;margin:26px 12px 6px}
+.stage{position:relative;width:240px;height:240px;margin:10px auto 4px;display:grid;place-items:center}
+.stage::before,.stage::after{content:"";position:absolute;inset:8px;border-radius:50%;border:2px solid var(--acc);opacity:.28}
+.stage::after{inset:-6px;opacity:.14}
+.stage:has(.on)::before,.stage:has(.on)::after{inset:30px;opacity:0;animation:rg 2.2s ease-out infinite}
+.stage:has(.on)::after{animation-delay:1.1s}
+@keyframes rg{0%{transform:scale(.8);opacity:.75}100%{transform:scale(1.4);opacity:0}}
+.rec{width:176px;height:176px;border-radius:50%;border:0;background:radial-gradient(circle at 32% 26%,color-mix(in srgb,var(--acc) 70%,#fff),var(--acc) 62%);color:var(--on);font:italic 700 26px var(--s);box-shadow:0 0 0 12px color-mix(in srgb,var(--acc) 20%,transparent),0 28px 50px -20px var(--acc)}
+.rec.on{animation:beat 1s ease-in-out infinite}@keyframes beat{50%{transform:scale(.94)}}
+.eco{display:flex;align-items:center;gap:12px;background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:12px;margin:0 0 10px}
+.pl{width:48px;height:48px;border-radius:50%;border:0;flex:none;font-size:15px;box-shadow:0 8px 16px -8px var(--ink)}
+.who{min-width:78px}
+.wv{display:flex;align-items:center;gap:2px;height:34px;flex:1}
+.wv i{flex:1;min-width:2px;border-radius:3px;background:var(--c);opacity:.5}
+.eco.playing .wv i{opacity:1;animation:bar .8s ease-in-out infinite alternate}
+@keyframes bar{to{transform:scaleY(.4)}}
+#msg{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));width:max-content;max-width:90%;margin:0;padding:10px 18px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:15px;text-align:center}
+#msg:empty{display:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<p id="msg" role="status"></p>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.js"></script>
+<script>
+const sb=supabase.createClient("https://lyxnaghchtyawfikfyyq.supabase.co","sb_publishable_CdipufqBLIOO-AvL1ajssw_ahuwKi8-");
+const $=s=>document.querySelector(s),app=$("#app");
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const hoje=()=>new Date().toLocaleDateString("sv");
+const toast=t=>{const m=$("#am")||$("#msg");m.textContent=t||""};
+const TEMAS=["O som da tua rua","A tua música de hoje","O que ouves agora","Uma frase sobre o teu dia","O som da tua casa","Algo que te fez sorrir"];
+const PAL=[
+{p:"amanhecer",bg:"#F7E4D4",bg2:"#F2C9C0",ink:"#3A2230",mute:"#85606C",acc:"#B8476A",on:"#ffffff"},
+{p:"dia",bg:"#E6F0DA",bg2:"#C9E0CF",ink:"#14301F",mute:"#4F6F5C",acc:"#2A7456",on:"#ffffff"},
+{p:"fim de tarde",bg:"#F8E3A8",bg2:"#EFB778",ink:"#3B2A0B",mute:"#7A5F2A",acc:"#8A4B0F",on:"#ffffff"},
+{p:"noite",bg:"#10212C",bg2:"#0A141B",ink:"#E6F0F3",mute:"#8FA9B3",acc:"#7CC4D4",on:"#0A141B"}];
+const P=h=>h>=5&&h<10?PAL[0]:h<16&&h>=10?PAL[1]:h>=16&&h<19?PAL[2]:PAL[3];
+function aplicar(){const q=P(new Date().getHours()),s=document.documentElement.style;["bg","bg2","ink","mute","acc","on"].forEach(k=>s.setProperty("--"+k,q[k]));document.querySelector('meta[name=theme-color]').content=q.bg}
+let me=null,pending=((location.hash.match(/entrar=([A-Za-z0-9]+)/)||[])[1])||null;
+
+function authView(){
+app.innerHTML=`<div class="hero"><svg class="logo" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="6"/></svg><h1>eco</h1><p class="sub">10 segundos do teu dia,<br>em som.</p></div><div class="card"><input id="u" placeholder="nome de utilizador" autocapitalize="none" autocomplete="username"><input id="p" type="password" placeholder="palavra-passe (mínimo 6)" autocomplete="current-password"><button class="big" id="in">Entrar</button><button class="ghost" id="up">Criar conta</button><p id="am" role="alert" style="min-height:22px;margin:10px 0 0;font-weight:700"></p></div>`;
+$("#in").onclick=()=>auth(false);$("#up").onclick=()=>auth(true)}
+
+async function auth(novo){
+const u=$("#u").value.trim().toLowerCase(),p=$("#p").value;
+if(!/^[a-z0-9_]{3,20}$/.test(u))return toast("Nome: 3 a 20 letras minúsculas, números ou _.");
+if(p.length<6)return toast("A palavra-passe precisa de 6 ou mais caracteres.");
+toast("Um momento…");const e=u+"@eco.app";
+let r;try{r=novo?await sb.auth.signUp({email:e,password:p,options:{data:{username:u}}}):await sb.auth.signInWithPassword({email:e,password:p})}catch(x){return toast("Erro de ligação: "+x.message)}
+if(r.error)return toast(/registered/i.test(r.error.message)?"Esse nome já existe.":/credentials/i.test(r.error.message)?"Nome ou palavra-passe errados.":"Erro: "+r.error.message);
+if(!r.data.session)return toast("Conta criada, mas falta desligar “Confirmar email” no Supabase.");
+toast("");me=r.data.user;home()}
+
+async function home(){
+if(pending){const r=await sb.rpc("join_circle",{p_code:pending});pending=null;history.replaceState(null,"",location.pathname);toast(r.error?r.error.message:"Entraste no círculo.")}
+const {data}=await sb.from("circles").select("id,name,invite_code").order("created_at");
+app.innerHTML=`<div class="top"><svg class="logo" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="6"/></svg><h1>eco</h1></div><p class="sub">Os teus círculos</p><div id="cl"></div><div class="card"><input id="cn" placeholder="nome do novo círculo" maxlength="40"><button class="big" id="cc">Criar círculo</button></div><div class="card"><input id="cj" placeholder="código de convite"><button class="ghost" id="cb">Entrar com código</button></div><button class="link" id="out">Sair da conta</button>`;
+(data||[]).forEach((c,i)=>{const q=PAL[i%4],b=document.createElement("button");b.className="item";b.style.setProperty("--c",q.acc);b.style.setProperty("--t",q.on);b.innerHTML="<span></span><em>›</em>";b.firstChild.textContent=c.name;b.onclick=()=>circle(c);$("#cl").appendChild(b)});
+if(!(data||[]).length)$("#cl").innerHTML='<p class="mute">Ainda não tens círculos. Cria um e convida amigos.</p>';
+$("#cc").onclick=async()=>{const n=$("#cn").value.trim();if(!n)return;const r=await sb.rpc("create_circle",{p_name:n});r.error?toast(r.error.message):circle(r.data)};
+$("#cb").onclick=async()=>{const r=await sb.rpc("join_circle",{p_code:$("#cj").value});r.error?toast(r.error.message):home()};
+$("#out").onclick=async()=>{await sb.auth.signOut();me=null;authView()}}
+
+async function circle(c){
+toast("");const link=location.origin+location.pathname+"#entrar="+c.invite_code;
+app.innerHTML=`<button class="link" id="bk">← Círculos</button><h1>${esc(c.name)}</h1><div class="card"><small>Convida por link</small><input id="lk" readonly value="${esc(link)}"><button class="ghost" id="sh">Partilhar convite</button></div><div id="box"></div>`;
+$("#bk").onclick=home;
+$("#sh").onclick=()=>navigator.share?navigator.share({title:"Eco",text:"Entra no meu círculo no Eco:",url:link}).catch(()=>{}):(navigator.clipboard.writeText(link),toast("Link copiado."));
+const d=hoje(),{data}=await sb.from("ecos").select("id").eq("circle_id",c.id).eq("user_id",me.id).eq("day",d);
+(data&&data.length)?feed(c,d):recView(c,d)}
+
+function recView(c,d){
+$("#box").innerHTML=`<p class="tema">${esc(TEMAS[Math.floor(Date.now()/864e5)%TEMAS.length])}</p><p class="mute">Grava o teu eco de hoje para ouvir os do círculo.</p><div class="stage"><button id="rec" class="rec">Gravar</button></div>`;
+$("#rec").onclick=()=>gravar(c,d)}
+
+async function gravar(c,d){
+const b=$("#rec");let s;
+if(!window.MediaRecorder)return toast("Este navegador não grava áudio.");
+try{s=await navigator.mediaDevices.getUserMedia({audio:true})}catch(e){return toast("Sem acesso ao microfone.")}
+const ch=[],r=new MediaRecorder(s);let t=10,iv;
+r.ondataavailable=e=>{if(e.data.size)ch.push(e.data)};
+r.onstop=async()=>{
+clearInterval(iv);s.getTracks().forEach(k=>k.stop());b.disabled=true;b.classList.remove("on");b.textContent="A guardar…";
+const m=r.mimeType||"audio/webm",ext=/mp4/.test(m)?"m4a":"webm",path=`${me.id}/${c.id}-${d}.${ext}`;
+const u=await sb.storage.from("ecos").upload(path,new Blob(ch,{type:m}),{contentType:m.split(";")[0]});
+if(u.error){toast(u.error.message);return recView(c,d)}
+const i=await sb.from("ecos").insert({circle_id:c.id,user_id:me.id,path,period:P(new Date().getHours()).p,day:d});
+if(i.error){await sb.storage.from("ecos").remove([path]);toast(i.error.message);return recView(c,d)}
+circle(c)};
+r.start();b.classList.add("on");b.textContent="Parar (10)";
+b.onclick=()=>{if(r.state==="recording")r.stop()};
+iv=setInterval(()=>{t--;b.textContent="Parar ("+t+")";if(t<=0)r.stop()},1000)}
+
+async function feed(c,d){
+const {data}=await sb.from("ecos").select("path,period,created_at,profiles(username)").eq("circle_id",c.id).eq("day",d).order("created_at");
+const L=data||[],sg=L.length?((await sb.storage.from("ecos").createSignedUrls(L.map(e=>e.path),3600)).data||[]):[],url={};
+sg.forEach(x=>{url[x.path]=x.signedUrl});
+$("#box").innerHTML=`<h2>Ecos de hoje (${L.length})</h2><div id="fl"></div>`+(L.length>1?'<button class="big" id="mx">Ouvir a Mistura</button><div id="dl"></div>':"")+'<p class="mute">Volta amanhã para um novo eco.</p>';
+L.forEach(e=>{
+const q=PAL.find(x=>x.p===e.period)||PAL[1],a=new Audio(url[e.path]),li=document.createElement("div");
+li.className="eco";
+const bars=Array.from({length:28},(_,k)=>`<i style="height:${8+Math.abs(Math.sin(k*1.7+e.path.length))*22|0}px;animation-delay:${(k%6)*.1}s"></i>`).join("");
+li.innerHTML=`<button class="pl" style="background:${q.acc};color:${q.on}" aria-label="Ouvir">▶</button><div class="who"><b>${esc(e.profiles&&e.profiles.username||"?")}</b><small>${esc(e.period)}</small></div><div class="wv" style="--c:${q.acc}">${bars}</div>`;
+const b=li.firstChild;
+b.onclick=()=>{if(a.paused){a.play();b.textContent="❚❚"}else{a.pause();b.textContent="▶"}li.classList.toggle("playing",!a.paused)};
+a.onended=()=>{b.textContent="▶";li.classList.remove("playing")};
+$("#fl").appendChild(li)});
+if($("#mx"))$("#mx").onclick=()=>mistura(L.map(e=>url[e.path]))}
+
+async function mistura(urls){
+toast("A juntar os ecos…");
+try{
+const ctx=new (window.AudioContext||window.webkitAudioContext)(),bs=[];
+for(const u of urls)bs.push(await ctx.decodeAudioData(await (await fetch(u)).arrayBuffer()));
+const gap=Math.floor(ctx.sampleRate*.4),len=bs.reduce((n,b)=>n+b.length+gap,0),out=ctx.createBuffer(1,len,ctx.sampleRate),ch=out.getChannelData(0);let o=0;
+bs.forEach(b=>{ch.set(b.getChannelData(0),o);o+=b.length+gap});
+const s=ctx.createBufferSource();s.buffer=out;s.connect(ctx.destination);s.start();
+$("#dl").innerHTML=`<a class="link" download="mistura-eco.wav" href="${URL.createObjectURL(wav(out))}">Descarregar a Mistura</a>`;
+toast("A tocar a Mistura.")}
+catch(e){toast("Não consegui juntar os ecos neste navegador.")}}
+
+function wav(b){
+const d=b.getChannelData(0),n=d.length,v=new DataView(new ArrayBuffer(44+n*2)),w=(o,s)=>[...s].forEach((c,i)=>v.setUint8(o+i,c.charCodeAt(0)));
+w(0,"RIFF");v.setUint32(4,36+n*2,true);w(8,"WAVEfmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+v.setUint32(24,b.sampleRate,true);v.setUint32(28,b.sampleRate*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,"data");v.setUint32(40,n*2,true);
+for(let i=0;i<n;i++)v.setInt16(44+i*2,Math.max(-1,Math.min(1,d[i]))*32767,true);
+return new Blob([v],{type:"audio/wav"})}
+
+(async()=>{
+aplicar();setInterval(aplicar,60000);
+const {data}=await sb.auth.getSession();
+if(data.session){me=data.session.user;home()}else authView()})();
+</script>
+</body>
+</html>
