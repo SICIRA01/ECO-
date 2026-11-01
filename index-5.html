@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#E6F0DA">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Eco</title>
+<style>
+:root{--bg:#E6F0DA;--bg2:#C9E0CF;--ink:#14301F;--mute:#4F6F5C;--acc:#2A7456;--on:#fff;--f:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--s:Georgia,"Iowan Old Style",serif;--glass:color-mix(in srgb,var(--bg) 58%,transparent);--line:color-mix(in srgb,var(--ink) 13%,transparent);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg2)}
+body{margin:0;min-height:100vh;font-family:var(--f);color:var(--ink);background:linear-gradient(165deg,var(--bg),var(--bg2));transition:background 1s;overflow-x:hidden}
+body::before,body::after{content:"";position:fixed;z-index:-1;border-radius:50%;pointer-events:none}
+body::before{width:360px;height:360px;background:var(--acc);top:-150px;right:-120px;filter:blur(70px);opacity:.4}
+body::after{width:300px;height:300px;background:var(--bg);bottom:-100px;left:-120px;filter:blur(60px);opacity:.9}
+main{max-width:460px;margin:0 auto;padding:22px 18px 110px}
+h1{font:italic 700 44px/1 var(--s);letter-spacing:-1.5px;margin:0}
+h2{font:italic 600 24px var(--s);margin:28px 0 12px}
+.sub{color:var(--mute);margin:8px 0 20px;font-size:17px;line-height:1.35}
+.mute,small{color:var(--mute)}small{display:block;font-size:13px;margin-top:2px}
+.hero{text-align:center;padding:22px 0 10px}.hero h1{font-size:58px;margin-top:4px}.hero .sub{font:italic 400 21px/1.3 var(--s);margin:10px 0 24px}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:6px}.top h1{font-size:38px}
+.card{background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:24px;padding:16px;margin:0 0 14px;box-shadow:0 18px 36px -24px var(--ink)}
+input{width:100%;font:inherit;color:inherit;background:color-mix(in srgb,var(--bg) 75%,transparent);border:1.5px solid var(--line);border-radius:16px;padding:15px;margin:0 0 10px}
+input[type=file]{display:none}
+input::placeholder{color:var(--mute)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.big{width:100%;border:0;border-radius:999px;padding:16px;background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 62%,var(--ink)));color:var(--on);font-weight:700;font-size:17px;margin:0 0 10px;box-shadow:0 14px 26px -12px var(--acc)}
+.ghost{width:100%;border:1.5px solid var(--acc);border-radius:999px;padding:14px;background:transparent;color:var(--ink);font-weight:600}
+.link{background:none;border:0;color:var(--acc);padding:10px 0;font-weight:700;text-decoration:underline;display:inline-block;cursor:pointer}
+.item{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;font:italic 600 24px var(--s);padding:24px 20px;margin:0 0 12px;border:0;border-radius:24px;color:var(--t,#fff);background:radial-gradient(circle at 92% 20%,color-mix(in srgb,var(--t,#fff) 28%,transparent),transparent 45%),linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 58%,#000));box-shadow:0 16px 30px -18px var(--c)}
+.item em{font:normal 28px var(--f);opacity:.8}
+.tema{font:italic 600 27px/1.2 var(--s);text-align:center;margin:26px 12px 6px}
+.stage{position:relative;width:240px;height:240px;margin:10px auto 4px;display:grid;place-items:center}
+.stage::before,.stage::after{content:"";position:absolute;inset:8px;border-radius:50%;border:2px solid var(--acc);opacity:.28;pointer-events:none}
+.stage::after{inset:-6px;opacity:.14}
+.stage:has(.on)::before,.stage:has(.on)::after{inset:30px;opacity:0;animation:rg 2.2s ease-out infinite}
+.stage:has(.on)::after{animation-delay:1.1s}
+@keyframes rg{0%{transform:scale(.8);opacity:.75}100%{transform:scale(1.4);opacity:0}}
+.rec{position:relative;z-index:1;width:176px;height:176px;border-radius:50%;border:0;background:radial-gradient(circle at 32% 26%,color-mix(in srgb,var(--acc) 70%,#fff),var(--acc) 62%);color:var(--on);font:italic 700 26px var(--s);box-shadow:0 0 0 12px color-mix(in srgb,var(--acc) 20%,transparent),0 28px 50px -20px var(--acc)}
+.rec.on{animation:beat 1s ease-in-out infinite}@keyframes beat{50%{transform:scale(.94)}}
+#msg{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:9;width:max-content;max-width:90%;margin:0;padding:10px 18px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:15px;text-align:center}
+#msg:empty{display:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
+.logoimg{width:96px;height:96px;display:inline-block;border-radius:24px}
+.top .logoimg{width:50px;height:50px;border-radius:13px}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;background:var(--bg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;border:0;background:none;padding:15px 4px;font-weight:700;color:var(--mute)}nav button.on{color:var(--acc);box-shadow:inset 0 3px 0 var(--acc)}
+.av{width:40px;height:40px;border-radius:50%;object-fit:cover;background:var(--acc);color:var(--on);display:inline-grid;place-items:center;font-weight:700;flex:none}
+.pav .av{width:84px;height:84px;font-size:32px;margin-bottom:6px}
+.ec{position:relative;background:var(--glass);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:20px;padding:12px;margin:0 0 12px}
+.hd{display:flex;align-items:center;gap:10px;padding-right:62px;min-height:52px}
+.th{position:absolute;top:10px;right:10px;width:52px;height:52px;border-radius:12px;object-fit:cover}
+.ec audio{width:100%;margin:10px 0 6px}
+.rxs{display:flex;flex-wrap:wrap;gap:6px}
+.rx{border:1px solid var(--line);background:none;border-radius:999px;padding:5px 10px;font-size:16px}
+.rx.me{background:var(--c);color:var(--on)}
+.act{display:flex;gap:18px}
+.kids{margin-left:14px}
+.star{margin-left:auto;color:#1E88E5;font-size:18px;background:none;border:0;padding:6px 4px;line-height:1}
+.vw{font-size:13px;color:var(--mute);margin-top:4px}
+.mbr.on .av{box-shadow:0 0 0 3px #2ecc71}
+.avr{display:flex;gap:12px;overflow-x:auto;padding:6px 0 12px}.mbr{text-align:center;flex:none}.mbr small{max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.auth{--bg:#03130D;--bg2:#050810;--ink:#F6EBD3;--mute:#9FB8AA;--acc:#F5C15B;--on:#1A1204;--glass:rgba(255,255,255,.05);--line:rgba(255,255,255,.15);background:radial-gradient(circle at 15% 0%,rgba(40,170,90,.38),transparent 46%),radial-gradient(circle at 100% 100%,rgba(255,170,30,.32),transparent 46%),radial-gradient(circle at 0% 100%,rgba(30,130,230,.28),transparent 42%),#03100B}
+body.auth::before{background:#e8467c;opacity:.26}
+body.auth::after{background:#2fd3c5;opacity:.16}
+body.auth .hero .logoimg{width:168px;height:168px;border-radius:40px;box-shadow:0 0 60px -8px rgba(255,170,40,.5),0 0 100px -14px rgba(40,210,130,.5)}
+body.auth h1{background:linear-gradient(90deg,#ff5f9e,#ffd166 50%,#4be3a1);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:6px}
+body.auth .sub{color:#d9cfb8}
+body.auth .card{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.15);box-shadow:0 0 44px -22px #ffb43b}
+body.auth input{background:rgba(0,0,0,.38);border-color:rgba(255,255,255,.18);color:var(--ink)}
+body.auth .big{background:linear-gradient(90deg,#ff5f9e,#ffb83b 55%,#43d98c);color:#1A1204;box-shadow:0 0 30px -6px rgba(255,170,50,.7)}
+body.auth .ghost{border-color:#43d98c;color:var(--ink);box-shadow:0 0 20px -9px #43d98c}
+body.auth #am{color:#ffd166}
+
+/* compacto: chat bilateral */
+main{padding:12px 12px 96px}
+h1{font-size:28px;letter-spacing:-1px}.top h1{font-size:24px}.top{gap:8px;margin-bottom:4px}.top .logoimg{width:32px;height:32px;border-radius:9px}
+.sub{margin:2px 0 10px;font-size:14px}h2{font-size:18px;margin:14px 0 8px}
+.card{padding:10px;margin:0 0 8px;border-radius:16px}
+input{padding:10px;margin:0 0 6px;border-radius:12px}
+.big{padding:11px;font-size:15px;margin:0 0 6px}.ghost{padding:9px}
+.item{padding:14px 16px;font-size:19px;margin:0 0 8px;border-radius:16px}.item em{font-size:22px}
+.stage{width:150px;height:150px;margin:2px auto}.rec{width:108px;height:108px;font-size:18px;box-shadow:0 0 0 8px color-mix(in srgb,var(--acc) 20%,transparent),0 16px 30px -14px var(--acc)}
+.ec{display:flex;flex-direction:column;align-items:flex-start;margin:0 0 6px;padding:0;background:none;border:0;border-radius:0;position:static}
+.ec.me{align-items:flex-end}
+.bb{width:min(86%,330px);padding:6px 8px;border-radius:14px 14px 14px 4px;background:var(--glass);border:1px solid var(--line);border-left:3px solid var(--c)}
+.ec.me .bb{border-radius:14px 14px 4px 14px;background:color-mix(in srgb,var(--c) 20%,var(--bg));border:1px solid color-mix(in srgb,var(--c) 40%,transparent)}
+.hd{display:flex;align-items:center;gap:6px;padding:0;min-height:0;font-size:13px}.hd small{margin:0 0 0 auto;font-size:11px}
+.hd .av{width:22px;height:22px;font-size:12px}
+.pent{font-style:normal;color:#D4A017;font-size:12px}
+.pl{display:flex;align-items:center;gap:6px;margin:4px 0}.ec audio{margin:0;height:32px;flex:1;min-width:0;width:auto}
+.th{position:static;width:32px;height:32px;border-radius:8px;flex:none}
+.rxs{gap:3px}.rx{padding:1px 6px;font-size:13px}.rx b{font-size:11px;margin-left:3px}
+.act{gap:12px;align-items:center}.link{padding:2px 0;font-size:12px}.star{padding:0 2px;font-size:15px}
+.kids{align-self:stretch;margin-left:12px}.rb{align-self:stretch}
+.avr{gap:8px;padding:4px 0 8px}.avr .av{width:32px;height:32px;font-size:15px}.mbr{position:relative}
+.mbr .x{position:absolute;top:-4px;right:-6px;width:16px;height:16px;border-radius:50%;border:0;background:#e53935;color:#fff;font-size:12px;line-height:16px;padding:0}
+.av.em{background:var(--glass);border:1px solid var(--line)}
+.dot{width:10px;height:10px;border-radius:50%;background:#e53935;display:inline-block}.r{display:flex;align-items:center;gap:10px}
+nav button.un::after{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#e53935;margin-left:6px}
+details.card summary{font-weight:700;color:var(--acc);cursor:pointer}
+.eg{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}.eg button{width:42px;height:42px;border-radius:50%;border:2px solid transparent;background:var(--glass);font-size:22px}.eg button.on{border-color:var(--acc)}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<p id="msg" role="status"></p>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.js"></script>
+<script>
+const sb=supabase.createClient("https://lyxnaghchtyawfikfyyq.supabase.co","sb_publishable_CdipufqBLIOO-AvL1ajssw_ahuwKi8-");
+const $=s=>document.querySelector(s),app=$("#app"),V=()=>$("#v");
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const hoje=()=>new Date().toLocaleDateString("sv");
+const toast=t=>{const m=$("#am")||$("#msg");m.textContent=t||""};
+const PAL=[
+{p:"amanhecer",bg:"#F7E4D4",bg2:"#F2C9C0",ink:"#3A2230",mute:"#85606C",acc:"#B8476A",on:"#ffffff"},
+{p:"dia",bg:"#E6F0DA",bg2:"#C9E0CF",ink:"#14301F",mute:"#4F6F5C",acc:"#2A7456",on:"#ffffff"},
+{p:"fim de tarde",bg:"#F8E3A8",bg2:"#EFB778",ink:"#3B2A0B",mute:"#7A5F2A",acc:"#8A4B0F",on:"#ffffff"},
+{p:"noite",bg:"#10212C",bg2:"#0A141B",ink:"#E6F0F3",mute:"#8FA9B3",acc:"#7CC4D4",on:"#0A141B"}];
+const P=h=>h>=5&&h<10?PAL[0]:h<16&&h>=10?PAL[1]:h>=16&&h<19?PAL[2]:PAL[3];
+function aplicar(){const q=P(new Date().getHours()),s=document.documentElement.style;["bg","bg2","ink","mute","acc","on"].forEach(k=>s.setProperty("--"+k,q[k]));document.querySelector('meta[name=theme-color]').content=q.bg}
+const AV=["🤵","👴","🐼","🐭","🐶","😼","😽","🤦","🤦‍♀️"];
+const EM=["❤️","😂","😮","🥹","👏"];
+const mmss=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+const fmt=d=>new Date(d).toLocaleString("pt-PT",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
+const ext=f=>(f.type.split("/")[1]||"jpg").replace(/[^a-z0-9]/g,"")||"jpg";
+let ch=null,cur=null,NT={},UN={},me=null,pr=null,U={},PR={},pending=((location.hash.match(/entrar=([A-Za-z0-9]+)/)||[])[1])||null;
+const nm=p=>p?(p.display_name||p.username||"?"):"?";
+
+async function urls(ps){ps=[...new Set(ps.filter(Boolean))].filter(p=>!U[p]&&!p.startsWith("emoji:"));if(!ps.length)return;
+const r=(await sb.storage.from("ecos").createSignedUrls(ps,3600)).data||[];r.forEach(x=>{if(x.signedUrl)U[x.path]=x.signedUrl})}
+async function profs(ids){ids=[...new Set(ids)].filter(i=>i&&!PR[i]);if(!ids.length)return;
+const {data}=await sb.from("profiles").select("id,username,display_name,avatar_path").in("id",ids);
+(data||[]).forEach(p=>PR[p.id]=p);await urls((data||[]).map(p=>p.avatar_path))}
+const av=p=>{const a=p&&p.avatar_path;if(a&&a.startsWith("emoji:"))return `<span class="av em">${a.slice(6)}</span>`;const s=a&&U[a];return s?`<img class="av" src="${esc(s)}" alt="">`:`<span class="av">${esc(nm(p)[0].toUpperCase())}</span>`};
+
+function authView(){document.body.classList.add("auth");
+app.innerHTML=`<div class="hero"><img class="logoimg" src="logo.png" alt="Eco"><h1>eco</h1><p class="sub">A tua voz, a tua história.</p></div><div class="card"><input id="u" placeholder="nome de utilizador" autocapitalize="none" autocomplete="username"><input id="p" type="password" placeholder="palavra-passe (6+, letras e números)" autocomplete="current-password"><button class="big" id="in">Entrar</button><button class="ghost" id="up">Criar conta</button><p id="am" role="alert" style="min-height:22px;margin:10px 0 0;font-weight:700"></p></div>`;
+$("#in").onclick=()=>auth(false);$("#up").onclick=()=>auth(true)}
+
+async function auth(novo){
+const u=$("#u").value.trim().toLowerCase(),p=$("#p").value;
+if(!/^[a-z0-9_]{3,20}$/.test(u))return toast("Nome: 3 a 20 letras minúsculas, números ou _.");
+if(/\s/.test(p)||p.length<6)return toast("Palavra-passe: mínimo 6 caracteres, sem espaços.");
+if(novo&&!/^[A-Za-z0-9]+$/.test(p))return toast("A palavra-passe só pode ter letras e números.");
+toast("Um momento…");
+if(novo){const k=await sb.rpc("username_free",{p_name:u});if(k.data===false)return toast("Esse nome já existe. Escolhe outro.")}
+let r;try{r=novo?await sb.auth.signUp({email:u+"@eco.app",password:p,options:{data:{username:u}}}):await sb.auth.signInWithPassword({email:u+"@eco.app",password:p})}catch(x){return toast("Erro de ligação: "+x.message)}
+if(r.error)return toast(/registered|already|database error/i.test(r.error.message)?"Esse nome já existe. Escolhe outro.":/credentials/i.test(r.error.message)?"Nome ou palavra-passe errados.":"Erro: "+r.error.message);
+if(!r.data.session)return toast("Conta criada, mas falta desligar “Confirmar email” no Supabase.");
+entrar(r.data.user)}
+
+async function entrar(u){me=u;document.body.classList.remove("auth");
+const {data}=await sb.from("profiles").select("*").eq("id",u.id).single();
+pr=data||{id:u.id,username:(u.user_metadata&&u.user_metadata.username)||"eco"};PR[u.id]=pr;await urls([pr.avatar_path]);
+app.innerHTML=`<div id="v"></div><nav><button data-t="eco">Meu Eco</button><button data-t="circ">Círculos</button><button data-t="perfil">Perfil</button></nav>`;
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>ir(b.dataset.t));
+avisos();ir(pending?"circ":"eco")}
+
+let AC=null;const ac=()=>{try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume()}catch(e){}};
+addEventListener("pointerdown",ac);
+function ding(){ac();if(!AC)return;const t=AC.currentTime;
+[[784,0,1],[1047,.11,.8],[880,.22,.55],[1047,.31,.4]].forEach(([f,d,v])=>{[1,2.01].forEach((m,k)=>{const o=AC.createOscillator(),g=AC.createGain();o.type="sine";o.frequency.value=f*m;
+g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(.22*v/(k+1),t+d+.01);g.gain.exponentialRampToValueAtTime(.001,t+d+.55);
+o.connect(g);g.connect(AC.destination);o.start(t+d);o.stop(t+d+.6)})})}
+const sair=()=>{cur=null;if(ch){sb.removeChannel(ch);ch=null}};
+function assin(id){if(NT[id])return;NT[id]=sb.channel("avisos-"+id).on("broadcast",{event:"novo"},p=>{ding();navigator.vibrate&&navigator.vibrate(200);toast("Novo áudio de "+p.payload.n+" em "+p.payload.c);if(cur&&cur.cid===id){if(![...document.querySelectorAll("audio")].some(a=>!a.paused))cur.reload()}else{UN[id]=1;navdot();const r=document.querySelector('.item[data-id="'+id+'"] .r');if(r&&!r.querySelector(".dot"))r.insertAdjacentHTML("afterbegin",'<i class="dot"></i>')}}).subscribe()}
+async function calcUN(ids){UN={};if(!ids.length)return;const [a,b]=await Promise.all([sb.from("ecos").select("id,circle_id").in("circle_id",ids).neq("user_id",me.id).limit(1000),sb.from("plays").select("eco_id").eq("user_id",me.id).limit(5000)]);const seen=new Set((b.data||[]).map(x=>x.eco_id));(a.data||[]).forEach(x=>{if(!seen.has(x.id))UN[x.circle_id]=1})}
+const navdot=()=>{const b=document.querySelector('nav [data-t="circ"]');if(b)b.classList.toggle("un",!!Object.keys(UN).length)};
+async function avisos(){const {data}=await sb.from("circles").select("id");(data||[]).forEach(c=>assin(c.id));await calcUN((data||[]).map(c=>c.id));navdot()}
+function ir(t){sair();toast("");document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));({eco:meuEco,circ:home,perfil:perfil})[t]()}
+
+/* ---------- gravador (usado no Meu Eco, círculos e respostas) ---------- */
+function recorder(box,o){
+box.innerHTML=`<div class="stage"><button class="rec">Gravar</button></div><p class="mute" style="text-align:center;margin:0 0 6px">Até ${o.max>=120?o.max/60+" minutos":o.max+" segundos"}</p><div style="text-align:center"><label class="link">📷 Adicionar imagem (opcional)<input type="file" accept="image/*"></label><small class="fn"></small></div>`;
+const b=box.querySelector(".rec"),f=box.querySelector("input");
+f.onchange=()=>{box.querySelector(".fn").textContent=f.files[0]?f.files[0].name:""};
+b.onclick=()=>gravar(box,b,f,o)}
+
+async function gravar(box,b,f,o){
+if(!window.MediaRecorder)return toast("Este navegador não grava áudio.");
+let s;try{s=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true}})}catch(e){return toast("Sem acesso ao microfone.")}
+const ch=[],r=new MediaRecorder(s,{audioBitsPerSecond:24000});let t=0,iv;
+r.ondataavailable=e=>{if(e.data.size)ch.push(e.data)};
+r.onstop=async()=>{
+clearInterval(iv);s.getTracks().forEach(k=>k.stop());b.disabled=true;b.classList.remove("on");b.textContent="A guardar…";
+const m=r.mimeType||"audio/webm",base=me.id+"/"+crypto.randomUUID(),ap=base+"."+(/mp4/.test(m)?"m4a":"webm"),fl=f.files[0],ip=fl?base+"-img."+ext(fl):null,bk=sb.storage.from("ecos");
+const fail=async(msg,rm)=>{if(rm.length)await bk.remove(rm);toast(msg);recorder(box,o)};
+let u=await bk.upload(ap,new Blob(ch,{type:m}),{contentType:m.split(";")[0]});if(u.error)return fail(u.error.message,[]);
+if(fl){u=await bk.upload(ip,fl,{contentType:fl.type});if(u.error)return fail(u.error.message,[ap])}
+const i=await sb.from("ecos").insert({circle_id:o.circle||null,user_id:me.id,path:ap,image_path:ip,duration:t,reply_to:o.reply||null,period:P(new Date().getHours()).p,day:hoje()});
+if(i.error)return fail(i.error.message,[ap,ip].filter(Boolean));
+o.keep?recorder(box,o):box.innerHTML="";toast("Guardado.");ding();o.done()};
+r.start();b.classList.add("on");b.textContent="Parar · 0:00";
+b.onclick=()=>{if(r.state==="recording")r.stop()};
+iv=setInterval(()=>{t++;b.textContent="Parar · "+mmss(t);if(t>=o.max)r.stop()},1000)}
+
+/* ---------- lista de áudios (cartões individuais, respostas, reações) ---------- */
+async function lista(box,L,circ,ctx){
+await profs(L.map(e=>e.user_id));await urls(L.flatMap(e=>[e.path,e.image_path]));
+const R={};if(L.length){const {data}=await sb.from("reactions").select("eco_id,user_id,emoji").in("eco_id",L.map(e=>e.id));(data||[]).forEach(x=>(R[x.eco_id]=R[x.eco_id]||[]).push(x));await profs((data||[]).map(x=>x.user_id))}
+if(circ){ctx.P={};const mine=L.filter(e=>e.user_id===me.id).map(e=>e.id);
+if(mine.length){const {data}=await sb.from("plays").select("eco_id,user_id,heard").in("eco_id",mine);(data||[]).forEach(x=>(ctx.P[x.eco_id]=ctx.P[x.eco_id]||[]).push(x));await profs((data||[]).map(x=>x.user_id))}
+const vis=L.filter(e=>e.user_id!==me.id).map(e=>({eco_id:e.id,user_id:me.id}));
+if(vis.length)sb.from("plays").upsert(vis,{onConflict:"eco_id,user_id",ignoreDuplicates:true}).then(()=>{})}
+const kids={},by={};L.forEach(e=>{by[e.id]=e;if(e.reply_to)(kids[e.reply_to]=kids[e.reply_to]||[]).push(e)});
+box.innerHTML="";
+const put=(e,par)=>{const c=card(e,R[e.id]||[],circ,ctx,by);par.appendChild(c);(kids[e.id]||[]).forEach(k=>put(k,c.querySelector(".kids")))};
+L.filter(e=>!e.reply_to||!by[e.reply_to]).forEach(e=>put(e,box));
+if(!L.length)box.innerHTML='<p class="mute">Ainda não há gravações. Toca em Gravar para começar.</p>'}
+
+function card(e,rx,circ,ctx,by){
+const q=PAL.find(x=>x.p===e.period)||PAL[1],p=PR[e.user_id],d=document.createElement("div"),pa=e.reply_to&&by[e.reply_to],im=e.image_path&&U[e.image_path],mine=e.user_id===me.id,mr=rx.find(x=>x.user_id===me.id);
+d.className="ec"+(mine?" me":"");d.style.setProperty("--c",q.acc);d.style.setProperty("--on",q.on);
+const bt=EM.map(m=>{const n=rx.filter(x=>x.emoji===m);return `<button class="rx${mr&&mr.emoji===m?" me":""}" data-m="${m}" aria-label="Reagir ${m}">${m}${n.length?"<b>"+n.length+"</b>":""}</button>`}).join("");
+const who=EM.map(m=>{const n=rx.filter(x=>x.emoji===m);return n.length?m+" "+n.map(x=>esc(nm(PR[x.user_id]))).join(", "):""}).filter(Boolean).join("  ·  ");
+const pent=e.user_id===ctx.owner?'<i class="pent" title="Criador do círculo">⬟</i>':"";
+d.innerHTML=`<div class="bb"><div class="hd">${mine?"":av(p)+"<b>"+esc(nm(p))+"</b>"}${pent}<small>${fmt(e.created_at)}</small></div>${pa?`<small>↳ ${esc(nm(PR[pa.user_id]))}</small>`:""}<div class="pl"><audio controls preload="none" src="${esc(U[e.path]||"")}"></audio><img class="th" src="${im?esc(im):"logo.png"}" alt=""></div><div class="rxs">${bt}</div>${who?`<small>${who}</small>`:""}<div class="act">${circ?'<button class="link" data-a="r">Responder</button>':""}${mine?'<button class="link" data-a="d">Apagar</button>':""}${circ&&mine?'<button class="star" data-a="s" hidden aria-label="Quem viu">★</button>':""}</div><div class="vw" hidden></div></div><div class="rb"></div><div class="kids"></div>`;
+d.querySelectorAll(".rx").forEach(b=>b.onclick=async()=>{const m=b.dataset.m;
+const r=mr&&mr.emoji===m?await sb.from("reactions").delete().match({eco_id:e.id,user_id:me.id}):await sb.from("reactions").upsert({eco_id:e.id,user_id:me.id,emoji:m},{onConflict:"eco_id,user_id"});
+r.error?toast(r.error.message):ctx.reload()});
+const dl=d.querySelector('[data-a="d"]');if(dl)dl.onclick=async()=>{if(!confirm("Apagar esta gravação?"))return;
+const ex=[e.path,e.image_path];let ids=[e.id];while(ids.length){const {data}=await sb.from("ecos").select("id,path,image_path").in("reply_to",ids);ids=(data||[]).map(x=>{ex.push(x.path,x.image_path);return x.id})}
+const r=await sb.from("ecos").delete().eq("id",e.id);if(r.error)return toast(r.error.message);
+await sb.storage.from("ecos").remove(ex.filter(Boolean));ctx.reload()};
+const rp=d.querySelector('[data-a="r"]');if(rp)rp.onclick=()=>{const b=d.querySelector(".rb");b.innerHTML?b.innerHTML="":recorder(b,{max:90,circle:ctx.cid,reply:e.id,done:ctx.novo||ctx.reload})};
+const st=d.querySelector('[data-a="s"]');if(st){const pl=(ctx.P&&ctx.P[e.id])||[];if(pl.length){st.hidden=false;st.onclick=()=>{const v=d.querySelector(".vw"),ou=pl.filter(x=>x.heard),n=a=>a.map(x=>esc(nm(PR[x.user_id]))).join(", ");v.hidden=!v.hidden;v.innerHTML=`Viram ${pl.length}: ${n(pl)}<br>Ouviram ${ou.length}: ${ou.length?n(ou):"ninguém ainda"}`}}}
+const au=d.querySelector("audio");if(circ&&!mine)au.addEventListener("play",()=>sb.from("plays").upsert({eco_id:e.id,user_id:me.id,heard:true},{onConflict:"eco_id,user_id"}).then(()=>{}),{once:true});
+return d}
+
+/* ---------- MEU ECO ---------- */
+async function meuEco(){
+V().innerHTML=`<div class="top"><img class="logoimg" src="logo.png" alt="Eco"><h1>meu eco</h1></div><p class="sub">O teu diário em voz. Só tu o ouves.</p><div id="rc"></div><h2>O teu arquivo</h2><div id="ls"></div>`;
+const ctx={reload:async()=>{const {data}=await sb.from("ecos").select("*").eq("user_id",me.id).is("circle_id",null).order("created_at",{ascending:false}).limit(100);await lista($("#ls"),data||[],false,ctx)}};
+recorder($("#rc"),{max:420,keep:true,done:ctx.reload});ctx.reload()}
+
+/* ---------- CÍRCULOS ---------- */
+async function home(){sair();
+if(pending){const r=await sb.rpc("join_circle",{p_code:pending});pending=null;history.replaceState(null,"",location.pathname);toast(r.error?r.error.message:"Entraste no círculo.")}
+const {data}=await sb.from("circles").select("id,name,invite_code,owner").order("created_at");await calcUN((data||[]).map(c=>c.id));navdot();
+V().innerHTML=`<div class="top"><img class="logoimg" src="logo.png" alt="Eco"><h1>círculos</h1></div><p class="sub">Conversas privadas, até 50 pessoas.</p><div id="cl"></div><div class="card"><input id="cn" placeholder="nome do novo círculo" maxlength="40"><button class="big" id="cc">Criar círculo</button></div><div class="card"><input id="cj" placeholder="código de convite"><button class="ghost" id="cb">Entrar com código</button></div>`;
+(data||[]).forEach(c=>assin(c.id));
+(data||[]).forEach((c,i)=>{const q=PAL[i%4],b=document.createElement("button");b.className="item";b.style.setProperty("--c",q.acc);b.style.setProperty("--t",q.on);b.dataset.id=c.id;b.innerHTML='<span></span><span class="r">'+(UN[c.id]?'<i class="dot"></i>':"")+'<em>›</em></span>';b.firstChild.textContent=c.name;b.onclick=()=>circle(c);$("#cl").appendChild(b)});
+if(!(data||[]).length)$("#cl").innerHTML='<p class="mute">Ainda não tens círculos. Cria um e convida amigos.</p>';
+$("#cc").onclick=async()=>{const n=$("#cn").value.trim();if(!n)return;const r=await sb.rpc("create_circle",{p_name:n});r.error?toast(r.error.message):circle(r.data)};
+$("#cb").onclick=async()=>{const r=await sb.rpc("join_circle",{p_code:$("#cj").value});r.error?toast(r.error.message):home()}}
+
+async function circle(c){
+toast("");delete UN[c.id];navdot();const own=c.owner||me.id,link=location.origin+location.pathname+"#entrar="+c.invite_code;
+V().innerHTML=`<div class="top"><button class="link" id="bk">←</button><h1>${esc(c.name)}</h1></div><div id="mb"></div><details class="card"><summary>Convidar pessoas</summary><small>Código: ${esc(c.invite_code)}</small><input id="lk" readonly value="${esc(link)}"><button class="ghost" id="sh">Partilhar convite</button></details><div id="ls"></div><button class="big" id="nv">🎙 Nova mensagem</button><div id="rc"></div>`;
+$("#bk").onclick=home;
+$("#sh").onclick=()=>navigator.share?navigator.share({title:"Eco",text:"Entra no meu círculo no Eco:",url:link}).catch(()=>{}):(navigator.clipboard.writeText(link),toast("Link copiado."));
+const fim=()=>scrollTo(0,document.body.scrollHeight);
+const ctx={cid:c.id,owner:own,reload:async()=>{const {data}=await sb.from("ecos").select("*").eq("circle_id",c.id).order("created_at").limit(300);await lista($("#ls"),data||[],true,ctx)}};
+ctx.novo=async()=>{await ctx.reload();fim();assin(c.id);NT[c.id].send({type:"broadcast",event:"novo",payload:{n:nm(pr),c:c.name}})};
+$("#nv").onclick=()=>{const r=$("#rc");r.innerHTML?r.innerHTML="":recorder(r,{max:90,circle:c.id,done:ctx.novo})};
+let m=[],on={};
+const paint=()=>{$("#mb").innerHTML=`<small>${m.length} de 50 membros · ${Object.keys(on).length} online</small><div class="avr">`+m.map(x=>{const p=PR[x.user_id],o=x.user_id===own;return `<span class="mbr${on[x.user_id]?" on":""}">${av(p)}${own===me.id&&!o?`<button class="x" data-u="${x.user_id}" aria-label="Remover">×</button>`:""}<small>${o?'<i class="pent">⬟</i> ':""}${esc(nm(p))}</small></span>`}).join("")+"</div>";
+document.querySelectorAll("#mb .x").forEach(b=>b.onclick=async()=>{if(!confirm("Remover este membro do círculo?"))return;const r=await sb.from("members").delete().eq("circle_id",c.id).eq("user_id",b.dataset.u).select();if(r.error)return toast(r.error.message);if(!r.data||!r.data.length)return toast("Não foi possível remover. Corre o SQL novo no Supabase.");m=m.filter(x=>x.user_id!==b.dataset.u);paint();toast("Membro removido.")})};
+m=(await sb.from("members").select("user_id").eq("circle_id",c.id)).data||[];await profs(m.map(x=>x.user_id));paint();
+sair();cur=ctx;assin(c.id);ch=sb.channel("circ-"+c.id,{config:{presence:{key:me.id}}});
+ch.on("presence",{event:"sync"},()=>{on=ch.presenceState();paint()})
+.subscribe(async st=>{if(st==="SUBSCRIBED")await ch.track({t:Date.now()})});
+ctx.reload().then(fim)}
+
+/* ---------- PERFIL ---------- */
+function perfil(){
+V().innerHTML=`<div class="top"><h1>perfil</h1></div><div class="card"><div class="pav">${av(pr)}</div><label class="link">Mudar fotografia<input id="pf" type="file" accept="image/*"></label><small id="pn"></small><small>Ou escolhe um avatar</small><div class="eg">${AV.map(a=>`<button data-a="${a}" class="${pr.avatar_path==="emoji:"+a?"on":""}">${a}</button>`).join("")}</div><small>Nome de utilizador (único)</small><input id="pu" value="${esc(pr.username||"")}" maxlength="20" autocapitalize="none"><small>Nome de exibição</small><input id="pd" value="${esc(pr.display_name||"")}" maxlength="30" placeholder="como queres aparecer"><button class="big" id="ps">Guardar</button></div><div class="card"><small>Privacidade: só tu ouves os teus ecos pessoais. Os círculos só são visíveis aos seus membros.</small></div><button class="link" id="out">Sair da conta</button>`;
+let ae=null;document.querySelectorAll(".eg button").forEach(b=>b.onclick=()=>{ae=b.dataset.a;document.querySelectorAll(".eg button").forEach(x=>x.classList.toggle("on",x===b));$("#pf").value="";$("#pn").textContent=""});
+$("#pf").onchange=()=>{ae=null;document.querySelectorAll(".eg button").forEach(x=>x.classList.remove("on"));$("#pn").textContent=$("#pf").files[0]?$("#pf").files[0].name:""};
+$("#ps").onclick=async()=>{const un=$("#pu").value.trim().toLowerCase();
+if(!/^[a-z0-9_]{3,20}$/.test(un))return toast("Nome: 3 a 20 letras minúsculas, números ou _.");
+const up={username:un,display_name:$("#pd").value.trim()||null},f=$("#pf").files[0];
+if(f){const path=`${me.id}/avatar-${Date.now()}.${ext(f)}`,s=await sb.storage.from("ecos").upload(path,f,{contentType:f.type});if(s.error)return toast(s.error.message);if(pr.avatar_path&&!pr.avatar_path.startsWith("emoji:"))sb.storage.from("ecos").remove([pr.avatar_path]);up.avatar_path=path}else if(ae){if(pr.avatar_path&&!pr.avatar_path.startsWith("emoji:"))sb.storage.from("ecos").remove([pr.avatar_path]);up.avatar_path="emoji:"+ae}
+const r=await sb.from("profiles").update(up).eq("id",me.id).select().single();
+if(r.error)return toast(r.error.code==="23505"?"Esse nome de utilizador já existe.":r.error.message);
+pr=r.data;PR[me.id]=pr;await urls([pr.avatar_path]);perfil();toast("Guardado.")};
+$("#out").onclick=async()=>{sair();Object.values(NT).forEach(x=>sb.removeChannel(x));NT={};await sb.auth.signOut();me=null;pr=null;PR={};U={};authView()}}
+
+(async()=>{
+aplicar();setInterval(aplicar,60000);
+const {data}=await sb.auth.getSession();
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+data.session?entrar(data.session.user):authView()})();
+</script>
+</body>
+</html>
